@@ -4,7 +4,10 @@
 
 <script>
 export default {
-  name: "Recommend"
+  name: "Recommend",
+  mounted() {
+    this.$store.dispatch("reqrecommendShopList")
+  }
 }
 </script>
 

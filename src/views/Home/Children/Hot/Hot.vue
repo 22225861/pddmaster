@@ -44,10 +44,10 @@ export default {
   mounted() {
     // 1. 请求轮播图的数据
     this.$store.dispatch('reqHomeCasual');
-    // // 2.请求首页导航的数据
-    // this.$store.dispatch('reqHomeNav');
-    // // 3. 请求首页的商品列表数据
-    // this.$store.dispatch('reqHomeShopList');
+    //请求首页导航数据
+    this.$store.dispatch('reqHomeNav')
+    // 3. 请求首页的商品列表数据
+    this.$store.dispatch('reqHomeShopList');
   },
   watch: {
     homecasual() {
