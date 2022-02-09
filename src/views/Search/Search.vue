@@ -7,65 +7,39 @@
       <!--   左边-->
       <div class="menu-wrapper">
         <ul>
-          <li class="current menu-item">
-            <span>女装</span>
+          <li class=" menu-item" v-for="(goods,index) in searchgoods" :key="index">
+            <span>{{goods.name}}</span>
           </li>
-          <li class="menu-item">
-            <span>鞋包</span>
-          </li>
+
         </ul>
       </div>
         <!--   右边-->
-      <div class="shop-wrapper">
+      <div class="shop-wrapper" >
         <ul>
-          <li class="shop-li">
+          <li class="shop-li" v-for="(goods,index) in searchgoods" :key="index">
             <div class="shops-title">
               <h4>
-                女装
+                {{ goods.name }}
               </h4>
               <a href="">查看更多</a>
-
             </div>
-            <ul class="shop-items">
-              <li>
-                <img src="./images/s1.png" alt="">
-                <span>女装</span>
+            <ul class="phone-type" v-if="goods.tag === 'phone'">
+              <li v-for="(phone, index) in goods.category" :key="index">
+                <img :src="phone.icon" alt="">
               </li>
-              <li>
-                <img src="./images/s1.png" alt="">
-                <span>女装</span>
-              </li>  <li>
-              <img src="./images/s1.png" alt="">
-              <span>女装</span>
-            </li>  <li>
-              <img src="./images/s1.png" alt="">
-              <span>女装</span>
-            </li>  <li>
-              <img src="./images/s1.png" alt="">
-              <span>女装</span>
-            </li>  <li>
-              <img src="./images/s1.png" alt="">
-              <span>女装</span>
-            </li>  <li>
-              <img src="./images/s1.png" alt="">
-              <span>女装</span>
-            </li>  <li>
-              <img src="./images/s1.png" alt="">
-              <span>女装</span>
-            </li>  <li>
-              <img src="./images/s1.png" alt="">
-              <span>女装</span>
-            </li>
-
-
-
-
-
-
             </ul>
+              <ul class="shop-items">
+                <li v-for="(item,index2) in goods.items" :key="index2">
+                  <img :src="item.icon" alt="">
+                  <span>{{item.title}}</span>
+                </li>
+              </ul>
           </li>
         </ul>
       </div>
+
+
+
     </div>
 
   </div>
@@ -73,11 +47,39 @@
 
 <script>
 import SearchNav from './children/SearchNav'
+import {mapState} from "vuex";
+import  BScroll from 'better-scroll'
+
 export default {
   name: "Search",
+  mounted() {
+    this.$store.dispatch('reqSearchGoods')
+  },
   components: {
     SearchNav
   },
+  methods:{
+    _initBScroll(){
+      //左边
+     let  leftScroll=new BScroll('.menu-wrapper',{})
+      //右边
+      let  rightScroll=new BScroll('.shop-wrapper',{})
+      console.log(leftScroll,rightScroll)
+    },
+
+  },
+  computed:{
+    ...mapState(['searchgoods'])
+  },
+  watch:{
+    searchgoods(){
+      this.$nextTick(()=>{
+        //左边
+        this._initBScroll()
+
+      })
+    }
+  }
 }
 </script>
 
@@ -118,7 +120,20 @@ export default {
       position absolute
       left 0
 
-
+  .phone-type
+    width 100%
+    display flex
+    flex-direction row
+    flex-wrap wrap
+    border-bottom-1px(#ccc)
+    li
+      width 33.3%
+      display flex
+      justify-content center
+      align-items center
+      margin 5px 0
+      img
+        width 70%
   .shop-wrapper
     flex 1
     background-color: #fff

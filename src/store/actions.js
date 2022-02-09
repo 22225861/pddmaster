@@ -1,7 +1,7 @@
 
 
-import {getHomeCasual, getHomeNav, getHomeShopList, getRecommendShopList} from './../api/index';
-import {HOME_CASUAL, HOME_NAV, HOME_Shop_List, Recommend_Shop_List} from "@/store/mutation-types";
+import {getHomeCasual, getHomeNav, getHomeShopList, getRecommendShopList, getSearchGoods} from './../api/index';
+import {HOME_CASUAL, HOME_NAV, HOME_Shop_List, Recommend_Shop_List, Search_Goods} from "@/store/mutation-types";
 
 export  default {
   //获取首页轮播图
@@ -23,5 +23,10 @@ export  default {
   async reqrecommendShopList({commit}){
     const result=await  getRecommendShopList()
     commit(Recommend_Shop_List,{recommendshoplist:result.message.data})
+  },
+  //获取推荐商品列表信息
+  async reqSearchGoods({commit}){
+    const result=await getSearchGoods()
+    commit(Search_Goods,{searchgoods:result.message.data})
   },
 }
