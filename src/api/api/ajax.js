@@ -1,4 +1,4 @@
- import axios from 'axios'
+import axios from 'axios'
 
 export default function ajax(url = '', params = {}, type = 'GET') {
     //定义promise对象
