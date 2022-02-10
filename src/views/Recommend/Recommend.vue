@@ -43,7 +43,7 @@ export default {
 
 <style lang="stylus" scoped>
 .recommend-container
-  background #F5F5F5
+  //background #F5F5F5
   width 100%
   height 100%
   .recommend

@@ -7,15 +7,21 @@
       <!--   左边-->
       <div class="menu-wrapper">
         <ul>
-          <li class=" menu-item" v-for="(goods,index) in searchgoods" :key="index">
+          <li class="menu-item"
+              v-for="(goods, index) in searchgoods"
+              :key="index"
+              :class="{current: index === currentIndex}"
+              @click="clickLeftItem(index)"
+              ref="menulist"
+          >
             <span>{{goods.name}}</span>
           </li>
 
         </ul>
       </div>
-        <!--   右边-->
+      <!--   右边-->
       <div class="shop-wrapper" >
-        <ul>
+        <ul ref="shopsParent">
           <li class="shop-li" v-for="(goods,index) in searchgoods" :key="index">
             <div class="shops-title">
               <h4>
@@ -28,12 +34,12 @@
                 <img :src="phone.icon" alt="">
               </li>
             </ul>
-              <ul class="shop-items">
-                <li v-for="(item,index2) in goods.items" :key="index2">
-                  <img :src="item.icon" alt="">
-                  <span>{{item.title}}</span>
-                </li>
-              </ul>
+            <ul class="shop-items">
+              <li v-for="(item,index2) in goods.items" :key="index2">
+                <img :src="item.icon" alt="">
+                <span>{{item.title}}</span>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -49,11 +55,18 @@
 import SearchNav from './children/SearchNav'
 import {mapState} from "vuex";
 import  BScroll from 'better-scroll'
-
 export default {
   name: "Search",
+  data(){
+    return{
+      scrollY:0,//右侧列表滑动的Y轴坐标
+      rightLiTops:[]//所有分类的头部位置
+    }
+
+  },
   mounted() {
     this.$store.dispatch('reqSearchGoods')
+
   },
   components: {
     SearchNav
@@ -61,22 +74,77 @@ export default {
   methods:{
     _initBScroll(){
       //左边
-     let  leftScroll=new BScroll('.menu-wrapper',{})
+     this.leftScroll=new BScroll('.menu-wrapper',{
+        click:true
+      })
       //右边
-      let  rightScroll=new BScroll('.shop-wrapper',{})
-      console.log(leftScroll,rightScroll)
+      this.rightScroll=new BScroll('.shop-wrapper',{
+
+        probeType:3 //只有设置probeType才可以执行监听右端的滚动事件 probeType:1迟钝触发 probeType:2灵敏触发 3 更灵敏
+      })
+      //监听右端的滑动事件
+      this.rightScroll.on('scroll',(pos)=>{
+        this.scrollY=Math.abs(pos.y)
+        console.log(this.scrollY)
+      })
+      //console.log(thileftScroll,this.rightLiTops)
+    },
+    //求出所有板块的头部位置
+    _initRightLiTops(){
+      //临时数组
+      const tempArr=[]
+      //定义变量记录高度
+      let top=0
+      tempArr.push(top)
+      //遍历li标签，取出高度
+      let allLis=this.$refs.shopsParent.getElementsByClassName('shop-li')
+      Array.prototype.slice.call(allLis).forEach(li=>{
+        top+=li.clientHeight
+        tempArr.push(top)
+      })
+
+      //更新数据
+      this.rightLiTops=tempArr
+      console.log(this.rightLiTops)
     },
 
+    // 1.3  点击切换
+    clickLeftItem(index) {
+      this.scrollY = this.rightLiTops[index];
+      this.rightScroll.scrollTo(0, -this.scrollY, 300);
+    },
+    //左侧联动
+    _leftScroll(index){
+      let menuLists=this.$refs.menulist
+      let el=menuLists[index]
+      // console.log(el)
+      this.leftScroll.scrollToElement(el,300, 0,-100)
+
+    }
   },
   computed:{
-    ...mapState(['searchgoods'])
+    ...mapState(['searchgoods']),
+    //用于动态决定左侧哪个选项被选中
+    currentIndex(){
+      //获取数据
+      const {scrollY,rightLiTops }= this
+      //取出索引
+      return rightLiTops.findIndex((liTop,index)=>{
+        this._leftScroll(index)
+        return scrollY>=liTop &&scrollY< rightLiTops[index+1]
+      })
+
+
+    }
   },
   watch:{
     searchgoods(){
       this.$nextTick(()=>{
-        //左边
-        this._initBScroll()
 
+        //初始化
+        this._initBScroll()
+        //求出所有板块的头部位置
+        this._initRightLiTops()
       })
     }
   }
