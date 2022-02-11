@@ -1,8 +1,8 @@
 <template>
   <div class="search">
     <!--搜索导航-->
-    <search-nav/>
-
+    <search-nav :isShowSearchPanel="isShowSearchPanel"/>
+    <!--  联动列表-->
     <div class="shop">
       <!--   左边-->
       <div class="menu-wrapper">
@@ -47,6 +47,8 @@
 
 
     </div>
+    <!-- 搜索面板-->
+    <SearchPanel v-if="isShow"  :isShowSearchPanel="isShowSearchPanel"></SearchPanel>
 
   </div>
 </template>
@@ -55,12 +57,14 @@
 import SearchNav from './children/SearchNav'
 import {mapState} from "vuex";
 import  BScroll from 'better-scroll'
+import SearchPanel from "@/views/Search/children/SearchPanel";
 export default {
   name: "Search",
   data(){
     return{
-      scrollY:0,//右侧列表滑动的Y轴坐标
-      rightLiTops:[]//所有分类的头部位置
+      scrollY:0, //右侧列表滑动的Y轴坐标
+      rightLiTops:[], //所有分类的头部位置
+      isShow:false   //设置搜索面板显示
     }
 
   },
@@ -69,7 +73,8 @@ export default {
 
   },
   components: {
-    SearchNav
+    SearchNav,
+    SearchPanel
   },
   methods:{
     _initBScroll(){
@@ -120,6 +125,10 @@ export default {
       // console.log(el)
       this.leftScroll.scrollToElement(el,300, 0,-100)
 
+    },
+    //设置搜索面板显示
+    isShowSearchPanel(flag){
+      this.isShow=flag
     }
   },
   computed:{
