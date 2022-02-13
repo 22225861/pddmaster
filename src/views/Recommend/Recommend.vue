@@ -15,6 +15,9 @@
 import ShopList from "@/components/ShopList/ShopList";
 import BScroll from "better-scroll";
 import {mapState} from 'vuex'
+import {Indicator} from "mint-ui";
+
+
 export default {
   name: "Recommend",
   components:{
@@ -27,7 +30,10 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("reqrecommendShopList",{page:this.page,count:this.count})
+    Indicator.open('正在加载...')
+    this.$store.dispatch("reqrecommendShopList",{page:this.page,count:this.count,callback:()=>{
+      Indicator.close()
+    }})
   },
 
   computed:{
@@ -62,8 +68,15 @@ export default {
         if (this.listenScroll.maxScrollY>pos.y+20){
           console.log(this.page)
           console.log('下拉刷新')
-          this.$store.dispatch("reqrecommendShopList",{page:this.page,count:this.count})
+          Indicator.open('正在加载数据...')
+          this.$store.dispatch("reqrecommendShopList",{page:this.page,count:this.count,callback:()=>{
+            Indicator.close()
+            }})
         }
+      })
+      //列表滚动结束
+      this.listenScroll.on('scrollEnd',()=>{
+          this.listenScroll.refresh()//当count为10时，下拉加载会出现样式问题，此代码就是为了解决该问题
       })
 
     }

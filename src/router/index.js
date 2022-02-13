@@ -17,6 +17,7 @@ import General from './../views/Home/Children/General'
 import Man from './../views/Home/Children/Man'
 import Mbaby from './../views/Home/Children/MBaby'
 import Shirt from './../views/Home/Children/Shirt'
+import Login from "@/views/Login/Login";
 
 
 // 2. 声明使用
@@ -31,7 +32,7 @@ export default  new VueRouter({
       component: Home,
       children: [
         // 热门版块
-        {path: 'hot', component: Hot},
+        {path: 'hot', component: Hot,meta:{showBottomTabBar:true}},
         // 服饰版块
         {path: 'dress', component: Dress},
         // 鞋包版块
@@ -49,27 +50,38 @@ export default  new VueRouter({
         // 电器版块
         {path: 'ele', component: Ele},
         {path: '/home',redirect: '/home/hot'}
-      ]
+      ],
+
     },
     {
       path: '/recommend',
-      component: Recommend
+      component: Recommend,
+      meta:{showBottomTabBar:true}
     },
     {
       path: '/search',
-      component: Search
+      component: Search,
+      meta:{showBottomTabBar:true}
     },
     {
       path: '/chat',
-      component: Chat
+      component: Chat,
+      meta:{showBottomTabBar:true}
     },
     {
       path: '/me',
-      component: Me
+      component: Me,
+      meta:{showBottomTabBar:true}
+    },
+    {
+      path: '/login',
+      component: Login,
+
     },
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/home',
+      meta:{showBottomTabBar:true}
     },
   ]
 });

@@ -1,4 +1,11 @@
-import {HOME_CASUAL, HOME_NAV, HOME_Shop_List, Recommend_Shop_List, Search_Goods} from "@/store/mutation-types";
+import {
+    HOME_CASUAL,
+    HOME_NAV,
+    HOME_Shop_List,
+    Recommend_Shop_List,
+    Search_Goods,
+    User_Info
+} from "@/store/mutation-types";
 
 
 export default {
@@ -16,5 +23,8 @@ export default {
     },
     [Search_Goods](state,{searchgoods}){
         state.searchgoods=searchgoods
+    },
+    [User_Info](state,{userInfo}){
+        state.userInfo=userInfo
     },
 }
