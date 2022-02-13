@@ -216,7 +216,7 @@ export default {
       }else {//成功
         //同步用户数据
         this.syncUserInfo(this.userInfo)
-        console.log("222")
+
         //回到主页面
         this.$router.back()
       }
@@ -225,127 +225,7 @@ export default {
 
 
   }
-  // computed: {
-  //   // 验证手机号是否合理
-  //   phoneRight() {
-  //     return /^[1][3,4,5,7,8][0-9]{9}$/.test(this.phone)
-  //   }
-  // },
-  // methods: {
-  //   ...mapActions(['syncUserInfo']),
-  //   // 1. 登录的模式
-  //   dealLoginMode(flag) {
-  //     this.loginMode = flag;
-  //   },
-  //   // 2. 获取短信验证码
-  //   async getVerifyCode() {
-  //     // 2.1 开启倒计时
-  //     if (this.phoneRight) {
-  //       this.countDown = 60;
-  //       this.intervalId = setInterval(() => {
-  //         this.countDown--;
-  //         // 判断
-  //         if (this.countDown === 0) {
-  //           clearInterval(this.intervalId);
-  //         }
-  //       }, 1000);
-  //     }
-  //
-  //     // 2.2 获取短信验证码
-  //     let result = await getPhoneCode(this.phone);
-  //     console.log(result);
-  //
-  //     // 2.3 获取验证码失败
-  //     if (result.err_code === 0) {
-  //       // 提示信息
-  //       Toast({
-  //         message: result.message,
-  //         position: 'center',
-  //         duration: 3000
-  //       });
-  //
-  //       // 其他处理
-  //       /*
-  //       clearInterval(this.intervalId);
-  //       this.countDown = 0;
-  //       */
-  //     }
-  //   },
-  //   // 3. 密码的显示方式
-  //   dealPwdMode(flag) {
-  //     this.pwdMode = flag;
-  //   },
-  //   // 4. 获取图形验证码
-  //   getCaptcha() {
-  //     this.$refs.captcha.src = 'http://localhost:3000/api/captcha?time=' + new Date();
-  //   },
-  //   // 5. 登录
-  //   async login() {
-  //     // 5.1 登录模式
-  //     if (this.loginMode) { // 验证码登录
-  //       // 5.2 前台校验
-  //       if (!this.phone) {
-  //         Toast("请输入手机号码!");
-  //         return;
-  //       } else if (!this.phoneRight) {
-  //         Toast("请输入正确手机号码!");
-  //         return;
-  //       }
-  //
-  //       if (!this.code) {
-  //         Toast("请输入验证码!");
-  //         return;
-  //       } else if (!(/^\d{6}$/gi.test(this.code))) {
-  //         Toast("请输入正确的验证码!");
-  //         return;
-  //       }
-  //       // 5.3 手机验证码登录
-  //       const result = await phoneCodeLogin(this.phone, this.code);
-  //       console.log(result);
-  //       if (result.success_code === 200) {
-  //         this.userInfo = result.message;
-  //       } else {
-  //         this.userInfo = {
-  //           message: '登录失败, 手机号或验证码不正确!'
-  //         };
-  //       }
-  //     } else { // 账号和密码登录
-  //       // 5.4 前端校验
-  //       if (!this.user_name) {
-  //         Toast("请输入用户名/手机/邮箱!");
-  //         return;
-  //       } else if (!this.pwd) {
-  //         Toast("请输入密码!");
-  //         return;
-  //       }else if (!this.captcha) {
-  //         Toast("请输入验证码!");
-  //         return;
-  //       }
-  //       // 5.5 用户名和密码的登录
-  //       const result = await pwdLogin(this.user_name, this.pwd, this.captcha);
-  //       console.log(result);
-  //       if (result.success_code === 200) {
-  //         this.userInfo = result.message;
-  //       } else {
-  //         this.userInfo = {
-  //           message: '登录失败, 手机号或验证码不正确!'
-  //         };
-  //       }
-  //     }
-  //
-  //     // 6. 后续处理
-  //
-  //
-  //     if (!this.userInfo.id) { // 失败
-  //       Toast(this.userInfo.message);
-  //     } else { // 成功
-  //       // 6.1 同步用户数据
-  //       this.syncUserInfo(this.userInfo);
-  //       // 6.2 回到主界面
-  //       this.$router.back();
-  //     }
-  //   }
-  // }
+
 }
 </script>
 

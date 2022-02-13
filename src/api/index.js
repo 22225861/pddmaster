@@ -18,6 +18,23 @@ export const getSearchGoods=()=>ajax(BASE_URL+'/api/searchgoods')
  export const PhoneCodeLogin=(phone,code)=>ajax(BASE_URL+'/api/login_code',{phone,code},"POST")
  //用户名和密码登录
  export const pwdLogin=(name,pwd,captcha)=>ajax(BASE_URL+'/api/login_pwd',{name,pwd,captcha},"POST")
- // //用户名和密码登录
+  //用户名和密码登录
  // export const getUserInfo=()=>ajax(BASE_URL+'/api/user_info')
+  //退出登录
+  export const getLogOut=()=>ajax(BASE_URL+'/api/logout')
+ // 修改用户信息
+ export const changeUserInfo = (user_id, user_name, user_sex, user_address, user_birthday, user_sign) => ajax(BASE_URL + '/api/change_user_msg', {
+  user_id,
+  user_name,
+  user_sex,
+  user_address,
+  user_birthday,
+  user_sign
+ }, 'POST');
+
+ //  加入购物车
+ export const addGoodsToCart = (user_id, goods_id, goods_name, thumb_url, price) => ajax(BASE_URL + '/api/add_shop_cart', {user_id, goods_id, goods_name, thumb_url, price}, 'POST');
+
+ // 请求购物车的数据
+ export const getCartsGoods = () => ajax(BASE_URL + '/api/cart_goods');
 

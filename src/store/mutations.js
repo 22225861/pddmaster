@@ -2,9 +2,11 @@ import {
     HOME_CASUAL,
     HOME_NAV,
     HOME_Shop_List,
-    Recommend_Shop_List,
+    Recommend_Shop_List, Reset_User_Info,
     Search_Goods,
-    User_Info
+    User_Info,
+    Cart_Goods_List
+
 } from "@/store/mutation-types";
 
 
@@ -27,4 +29,11 @@ export default {
     [User_Info](state,{userInfo}){
         state.userInfo=userInfo
     },
+    [Reset_User_Info](state){
+        state.userInfo={}
+    },
+    [Cart_Goods_List](state, {cartgoods}) {
+        state.cartgoods = cartgoods;
+    },
+
 }

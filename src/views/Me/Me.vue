@@ -1,22 +1,24 @@
 <template>
 <div class="me">
-
-  <div v-if="userInfo.id">主面板</div>
-  <select-login v-else></select-login >
+  <select-login v-if="!userInfo.id"></select-login >
+  <div v-else>
+    <me-top></me-top>
+  </div>
 </div>
 </template>
 
 <script>
 import SelectLogin from "@/views/Login/SelectLogin";
 import {mapState} from "vuex";
-
+import meTop from "@/views/Me/MeTop";
 export default {
   name: "Me",
   computed:{
     ...mapState(['userInfo'])
   },
   components:{
-    SelectLogin
+    SelectLogin,
+    meTop
   }
 }
 </script>

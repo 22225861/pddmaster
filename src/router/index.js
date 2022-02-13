@@ -18,8 +18,8 @@ import Man from './../views/Home/Children/Man'
 import Mbaby from './../views/Home/Children/MBaby'
 import Shirt from './../views/Home/Children/Shirt'
 import Login from "@/views/Login/Login";
-
-
+import Mesetting from "@/views/Me/MeSetting";
+import UserDetail from "@/views/Me/UserDetail";
 // 2. 声明使用
 Vue.use(VueRouter);
 
@@ -79,9 +79,19 @@ export default  new VueRouter({
 
     },
     {
+      path: '/setting',
+      component: Mesetting,
+
+    },
+    {
       path: '/',
       redirect: '/home',
       meta:{showBottomTabBar:true}
+    },
+    {
+      path: '/userdetail',
+      component: UserDetail,
+
     },
   ]
 });
