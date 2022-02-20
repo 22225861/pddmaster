@@ -1,7 +1,7 @@
 <template>
   <div class="select-login">
     <div class="bottom">
-      <img src="./images/lk_logo_sm.png" width="200" alt="">
+
     </div>
     <h4>选择登录方式</h4>
     <router-link tag="button" to="/login">手机登录</router-link>

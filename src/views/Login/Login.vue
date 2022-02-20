@@ -5,7 +5,6 @@
       <!--面板头部-->
       <div class="login-header">
         <div class="login-logo">
-          <img src="./images/lk_logo_sm.png" alt="" width="250">
         </div>
         <!--面板标题-->
         <div class="login-header-title">
